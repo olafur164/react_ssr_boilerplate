@@ -4,27 +4,36 @@ import logger from 'morgan'
 import passport from 'passport'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
+import methodOverride from 'method-override'
+import gzip from 'compression'
+import helmet from 'helmet'
 import flash from 'connect-flash'
-import session from 'express-session';
-import unsupportedMessage from '../db/unsupportedMessage';
-import { sessionSecret } from '../../config/secrets';
-import { DB_TYPE, ENV } from '../../config/env';
-import { session as dbSession } from '../db';
+import session from 'express-session'
+import unsupportedMessage from '../db/unsupportedMessage'
+import { sessionSecret } from '../../config/secrets'
+import { DB_TYPE, ENV } from '../../config/env'
+import { session as dbSession } from '../db'
 
 module.exports = (app) => {
   app.set('port', (process.env.PORT || 3000));
   const env = process.env.NODE_ENV || 'development'
 
-  // view engine setup
-  app.set('views', path.join(__dirname, '..', 'views'));
-  app.set('view engine', 'pug');
-
-
-  app.use(logger('dev'))
+  if (ENV === 'production') {
+    app.use(gzip());
+    // Secure your Express apps by setting various HTTP headers. Documentation: https://github.com/helmetjs/helmet
+    app.use(helmet());
+  }
+  
+  if (ENV === 'development') {
+   app.use(logger('dev'))
+  }
   
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
   app.use(cookieParser())
+  app.use(methodOverride())
+
+  app.set('trust proxy', 'loopback')
 
   let sessionStore = null;
   if (!dbSession) {
@@ -56,7 +65,6 @@ module.exports = (app) => {
 
   app.use(flash());
 
-  app.use(express.static(path.join(__dirname, '../../', 'public')));
   
   console.log('--------------------------');
   console.log('===> 😊  Starting Server . . .');

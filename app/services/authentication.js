@@ -3,7 +3,6 @@ import createRestApiClient from '../utils/createRestApiClient';
 
 export default () => {
   const client = createRestApiClient().withConfig({ baseURL: apiEndpoint });
-  console.log("working")
   return {
     login: ({ email, password }) => client.request({
       method: 'POST',

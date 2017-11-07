@@ -3,8 +3,10 @@ html
   head
     title= title
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
-    link(rel="stylesheet", href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css")
   body
     block content
     script(stype='text/javascript', src="https://code.jquery.com/jquery-2.0.0.js")
-    script(defer, src="https://code.getmdl.io/1.2.1/material.min.js")
+    script(defer, src="https://unpkg.com/popper.js")
+    script(defer, src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js")
+    script(async, type="text/javascript", charset="utf-8", src='/assets/app.js')

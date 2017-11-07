@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { Redirect } from 'react-router'
 import { connect } from 'react-redux';
 import { signUp } from '../actions/users';
 
@@ -9,6 +10,9 @@ import { signUp } from '../actions/users';
 class Register extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      redirect: false
+    }
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
   handleOnSubmit(event) {
@@ -20,14 +24,26 @@ class Register extends Component {
 
     signUp({ email, password });
   }
+  componentDidMount() {
+    const { authenticated } = this.props.user
+    const { dispatch } = this.props
+    const isAuthenticated = authenticated
+    if (isAuthenticated) {
+      this.setState({redirect: true});
+    }
+  }
 
   render () {
-    const { isWaiting, message, isLogin } = this.props.user;
-    console.log(message)
+    const { isWaiting, message, isLogin, authenticated } = this.props.user;
+    const isAuthenticated = authenticated
+    const { redirect } = this.state;
+    if (redirect) {
+      return <Redirect to='/'/>;
+    }
     return (
       <div>
-        <h1>LogOut</h1>
-        <form method="POST" action="/users">
+      { !isAuthenticated && (
+        <form onSubmit={this.handleOnSubmit}>
           <input
             type="email"
             ref="email"
@@ -41,6 +57,8 @@ class Register extends Component {
           <p>msg:{message}</p>
           <input type="submit" value="register"/>
         </form>
+      )
+      }
       </div>
     )
   }

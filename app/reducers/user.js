@@ -20,11 +20,11 @@ const message = (
   switch (action.type) {
     case types.TOGGLE_LOGIN_MODE:
     case types.MANUAL_LOGIN_USER:
+      return null;
     case types.SIGNUP_USER:
-    case types.LOGOUT_USER:
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
-      return '';
+      return action.message;
     case types.LOGIN_ERROR_USER:
     case types.SIGNUP_ERROR_USER:
       return action.message;

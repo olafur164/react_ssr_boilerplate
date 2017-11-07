@@ -7,9 +7,7 @@ import { Switch } from 'react-router'
 const Root = ({ route }) => (
   <div>
       <Navigation />
-      <Switch>
-        {renderRoutes(route.routes)}
-      </Switch>
+      {renderRoutes(route.routes)}
   </div>
 )
 

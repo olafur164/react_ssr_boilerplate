@@ -8,6 +8,14 @@ import { controllers, passport as passportConfig } from '../db'
 const usersController = controllers && controllers.users;
 
 export default (app) => {
+  app.use((req, res, next)=>{
+    console.log("middleware working");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, cache-control, postman-token, Access-Control-Allow-Origin");
+    next();
+  })
   // user routes
   if (usersController) {
     console.log("usercontroller is working")

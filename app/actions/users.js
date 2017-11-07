@@ -56,14 +56,13 @@ export function toggleLoginMode() {
 }
 
 export function manualLogin(data) {
-  console.log("manuallogin")
   return (dispatch) => {
     dispatch(beginLogin());
 
     return authService().login(data)
       .then((response) => {
-          dispatch(loginSuccess('You have been successfully logged in'));
-          dispatch(push('/'));
+          dispatch(loginSuccess('You have been successfully logged in'))
+          dispatch(push('/'))
       })
       .catch((err) => {
         dispatch(loginError('Oops! Invalid username or password'));
@@ -72,7 +71,7 @@ export function manualLogin(data) {
 }
 
 export function signUp(data) {
-  console.log("test")
+  
   return (dispatch) => {
     dispatch(beginSignUp());
 
@@ -94,6 +93,7 @@ export function logOut() {
     return authService().logOut()
       .then((response) => {
           dispatch(logoutSuccess());
+          dispatch(push('/'))
       })
       .catch((err) => {
         dispatch(logoutError());
