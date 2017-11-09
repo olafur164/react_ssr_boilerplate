@@ -21,7 +21,6 @@ const message = (
     case types.TOGGLE_LOGIN_MODE:
     case types.MANUAL_LOGIN_USER:
       return null;
-    case types.SIGNUP_USER:
     case types.LOGIN_SUCCESS_USER:
     case types.SIGNUP_SUCCESS_USER:
       return action.message;

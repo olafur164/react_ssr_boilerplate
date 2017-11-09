@@ -52,6 +52,13 @@ const Navigation = ({ user, logOut }) => {
               )
             }
             {
+              !isAuthenticated && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/Register">Register</Link>
+                </li>
+              )
+            }
+            {
               isAuthenticated && (
                 <li className="nav-item">
                   <Link onClick={logOut} className="nav-link" to="/">Logout</Link>

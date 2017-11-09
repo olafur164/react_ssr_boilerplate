@@ -21,7 +21,6 @@ router.get('*', (req, res) => {
     }
   })
   const routes = createRoutes(store)
-  console.log(req.isAuthenticated())
   const context = {}
 
   const loadBranchData = (location) => {
