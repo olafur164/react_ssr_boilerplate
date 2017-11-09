@@ -1,6 +1,5 @@
 node_modules
 compiled
-data/
 public/*
 !public/.gitkeep
 
